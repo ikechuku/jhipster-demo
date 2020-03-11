@@ -5,9 +5,6 @@ urlpatterns = [
     # match api index route request
     re_path(r'^(?:api/?)$', index),
 
-    # match test email route
-    re_path(r'^test\-email/?$', email),
-
     # match all api prefixed url requests
     path('api/', include('api.urls')),
 
