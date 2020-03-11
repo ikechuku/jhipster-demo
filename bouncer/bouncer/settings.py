@@ -13,7 +13,6 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import os
 from bouncer.db import DB
 from decouple import config
-import cloudinary
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -30,32 +29,18 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = ['*']
 
+
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
     'rest_framework',
-    'corsheaders',
-    'api',
-    'cloudinary'
+    'api'
 ]
-
-CORS_ORIGIN_ALLOW_ALL = True
-
-CORS_ALLOW_METHODS = [
-    'DELETE',
-    'GET',
-    'PUT',
-    'POST',
-    'PATCH'
-]
-
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
@@ -76,22 +61,8 @@ EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD", default="dummy-password")
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
-EMAIL_BACKEND = config('EMAIL_BACKEND', default='django.core.mail.backends.smtp.EmailBackend')
-
 # Global configurations for rest framework
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        # Changed authentication class
-        'rest_framework_simplejwt.authentication.JWTTokenUserAuthentication',
-    ],
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 10,
-}
-
-# Password Hasher
-PASSWORD_HASSHERS = [
-    'django.contrib.auth.hashers.BCryptSHA256PawordHasher'
-]
+REST_FRAMEWORK = {}
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
@@ -105,10 +76,3 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
-cloudinary.config(
-    cloud_name= config('CLOUD_NAME'),
-    api_key = config('API_KEY'),
-    api_secret = config('API_SECRET')
-    
-)
