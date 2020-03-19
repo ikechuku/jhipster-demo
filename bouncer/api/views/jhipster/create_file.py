@@ -1,9 +1,7 @@
 import json
 
 def create_file(raw_data):
-        # true = "true"
-        # false = "false"
-        output = {
+        output = {      
                 "generator-jhipster": {
                 "promptValues": {
                 "packageName": "org.jhipster.blog",
@@ -58,5 +56,5 @@ def create_file(raw_data):
 
         with open('.yo-rc.json', 'w') as outfile:
                 json.dump(output, outfile)
-        print(output)
+        print(raw_data)
         return output
