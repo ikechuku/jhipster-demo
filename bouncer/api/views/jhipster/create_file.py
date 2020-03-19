@@ -58,5 +58,5 @@ def create_file(raw_data):
 
         with open('.yo-rc.json', 'w') as outfile:
                 json.dump(output, outfile)
-        
+        print(output)
         return output
